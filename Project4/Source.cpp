@@ -136,3 +136,6 @@ void cambiarStatus() { // bloquear
 	fclose(lalista);
 }
 
+
+
+//simon!!!!!
