@@ -1,0 +1,11 @@
+							Elige una opcion
+															
+                    a)	Agregar contacto
+					b)	Modificar contacto
+					c)	Eliminar contacto
+					d)	Bloquear contacto
+					e)	Buscar contacto
+					f)	Mostrar contacto
+					g)	Quitar bloqueo a contacto
+															
+                    h)	Salir								
