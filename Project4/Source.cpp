@@ -2,6 +2,9 @@
 #include <windows.h>
 #pragma warning(disable : 4996)
 #pragma warning(disable : 6054)
+#pragma warning(disable : 6328)
+#pragma warning(disable : 4477)
+
 
 struct Morros {
 
@@ -15,6 +18,8 @@ struct Morros {
 void mostrarlista();
 void MeterMorro();
 char menu();
+void cambiarStatusOK();
+void cambiarStatus();
 //void bucarMorro();
 
 int main() {
@@ -32,7 +37,12 @@ int main() {
 		case 'f':
 			mostrarlista();
 			break;
-
+		case 'g':
+			cambiarStatusOK();
+			break;
+		case 'd':
+			cambiarStatus();
+			break;
 		default:
 			break;
 		}
@@ -100,7 +110,45 @@ void mostrarlista() {
 void cambiarStatus() { // bloquear 
 	int cuchao = 0;
 	char  a[50];
-	FILE* lalista = fopen("Lista de contactos.alv", "rb");
+	FILE* lalista = fopen("Lista de contactos.alv", "r+b");
+	Morros status;
+
+	printf("¿que alumno va a bloquear?");
+	scanf_s(" %[^\n]s", a, sizeof(a));
+	fread(&status, sizeof(Morros), 1, lalista);
+	while (!feof(lalista)) {
+		if (!strcmp(status.Alumno, a) && status.estatus == 1) {
+			printf("%-30s%-30s\n", "Nombre", "Telefono");
+			printf("%-30s", status.Alumno);
+			printf("%-30i", status.telefono);
+			int ontoi = ftell(lalista) - sizeof(status);
+			fseek(lalista, ontoi, SEEK_SET); //
+
+			status.estatus = 0;
+			fwrite(&status, sizeof(Morros), 1, lalista);
+			cuchao++;
+
+			break;
+		}
+		fread(&status, sizeof(Morros), 1, lalista);
+	}
+	if (cuchao == 0) {
+		printf("\n\nMorro no encontrado\n\n");
+	}
+	else
+	{
+		printf("\n\nContacto bloqueado\n\n");
+	}
+
+	system("pause");
+	system("cls");
+	fclose(lalista);
+}
+
+void cambiarStatusOK() {  // desbloquear
+	int cuchao = 0;
+	char  a[50];
+	FILE* lalista = fopen("Lista de contactos.alv", "r+b");
 	Morros status;
 
 	printf("¿que alumno va a bloquear?");
@@ -108,11 +156,11 @@ void cambiarStatus() { // bloquear
 
 	while (!feof(lalista)) {
 		fread(&status, sizeof(Morros), 1, lalista);
-		if (!strcmp(status.Alumno, a) && status.estatus == 1) {
+		if (!strcmp(status.Alumno, a) && status.estatus == 0) {
 			printf("%-30s%-30s\n", "Nombre", "Telefono");
 			printf("%-30s", status.Alumno);
 			printf("%-30i", status.telefono);
-			status.estatus = 0;
+			status.estatus = 1;
 
 			int ontoi = ftell(lalista) - sizeof(status);
 			fseek(lalista, ontoi, SEEK_SET); //
