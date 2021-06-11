@@ -17,7 +17,7 @@ struct Morros {
 
 void mostrarlista();
 void MeterMorro();
-
+char menu();
 void cambiarStatusOK();
 void cambiarStatus();
 void buscador();
@@ -87,16 +87,16 @@ void mostrarlista() {
 	printf("\n\n\t\tContactos guardados\n\n");
 	Morros chamacos[20];
 	FILE* lalista = fopen("Lista de contactos.alv", "rb");
-	int tamaño;
+	int tamano;
 	// printf(" \n nombre : %c \n, direccion: %c \n , edad :%i\n ,movil : %i \n, email : %c\n ",*dato[30].nombre,*dato[30].direccion,dato[30].edad,dato[30].movil,*dato[30].email);
 	fseek(lalista, 0, SEEK_END); // e l numero consta la cantidad de datos que nos vamos a mover 
-	tamaño = ftell(lalista); // dar tamaño de lista 
-	tamaño = tamaño / sizeof(Morros); // dividir cantidad total de carcateres ente el tamaño del arreglo 
+	tamano = ftell(lalista); // dar tamaño de lista 
+	tamano = tamano / sizeof(Morros); // dividir cantidad total de carcateres ente el tamaño del arreglo 
 	rewind(lalista); // regresar al inicio del archivo 
 
 	printf("%-30s %-30s\n", "Nombre", "Telefono"); //  imprime un espaciado  entre   la cadena y el tex
 
-	for (int i = 0; i < tamaño; i++)
+	for (int i = 0; i < tamano; i++)
 	{
 		fread(&chamacos[i], 1, sizeof(Morros), lalista);
 		if (chamacos[i].estatus == 1) {
