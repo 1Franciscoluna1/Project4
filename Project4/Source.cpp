@@ -15,6 +15,7 @@ struct Morros {
 void mostrarlista();
 void MeterMorro();
 char menu();
+void buscador();
 //void bucarMorro();
 
 int main() {
@@ -28,11 +29,13 @@ int main() {
 		case 'a':
 			MeterMorro();
 			break;
-
+            case 'e':
+			buscador();
+			break;
 		case 'f':
 			mostrarlista();
 			break;
-
+		
 		default:
 			break;
 		}
@@ -95,7 +98,7 @@ void mostrarlista() {
 	system("pause");
 	system("cls");
 	fclose(lalista);
-}
+} 
 
 void cambiarStatus() { // bloquear 
 	int cuchao = 0;
@@ -133,6 +136,30 @@ void cambiarStatus() { // bloquear
 
 	system("pause");
 	system("cls");
+	fclose(lalista);
+} void buscador() {
+
+	int cuchao = 0;
+	char  a[50];
+	FILE* lalista = fopen("Lista de contactos.alv", "rb");
+	Morros status;
+
+	printf("¿que alumno va a BUSCAR?\n\n\n");
+	scanf_s(" %[^\n]s", a, sizeof(a));
+
+	while (!feof(lalista)) {
+		fread(&status, sizeof(Morros), 1, lalista);
+		if (!strcmp(status.Alumno, a) && status.estatus == 1) {
+			printf("%-30s%-30s\n", "Nombre", "Telefono");
+			printf("%-30s", status.Alumno);
+			printf("%-30i", status.telefono);
+			printf("\n\n\n");
+
+			break; 
+		}
+	}
+	printf("alumno no encontrado\n");
+
 	fclose(lalista);
 }
 
