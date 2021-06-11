@@ -15,6 +15,7 @@ struct Morros {
 void mostrarlista();
 void MeterMorro();
 char menu();
+void buscador();
 //void bucarMorro();
 
 int main() {
@@ -95,7 +96,7 @@ void mostrarlista() {
 	system("pause");
 	system("cls");
 	fclose(lalista);
-}
+} 
 
 void cambiarStatus() { // bloquear 
 	int cuchao = 0;
@@ -134,5 +135,9 @@ void cambiarStatus() { // bloquear
 	system("pause");
 	system("cls");
 	fclose(lalista);
+} void buscador() {
+
+
+	// el se la come 
 }
 
